@@ -9,6 +9,14 @@ rake "gems:install"
 plugin 'footnotes', :git => 'git://github.com/josevalim/rails-footnotes.git'
 run 'touch test/factory.rb'
 
+capify!
+
+inside 'config/deploy' do
+  run 'touch production.rb'
+  run 'touch staging.rb'
+end
+run 'cp config/environments/production.rb config/environments/staging.rb'
+
 git :init
 
 file ".gitignore", <<-END
